@@ -1,0 +1,1 @@
+<livewire:daily-sales-report/>
