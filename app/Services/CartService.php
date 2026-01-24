@@ -47,6 +47,7 @@ class CartService extends Controller
 
     }
 
+    //removing cart Item
     public function removeFromCart($id,ActionLogService $logger){
         $cartItem = $this->cartItem->getCartItem($id);
         $logger->log(
@@ -60,6 +61,7 @@ class CartService extends Controller
         $this->cartItem->removeFromCart($id);
     }
 
+    //Remove cart by product
     public function removeFromCartByProduct($id,ActionLogService $logger){
         $cartItem = $this->cartItem->getCartItemByProduct($id);
         $logger->log(
@@ -72,7 +74,7 @@ class CartService extends Controller
 
         $this->cartItem->removeFromCartByProduct($id);
     }
-
+    //adding units 
     public function addUnits(int $id,ActionLogService $logger){
         $cartItem = $this->cartItem->addUnits($id);
         $logger->log(
@@ -85,6 +87,7 @@ class CartService extends Controller
 
       
     }
+    //adding units by product
     public function addUnitsProduct(int $id,ActionLogService $logger){
         $cartItem = $this->cartItem->addUnitsProduct($id);
         $logger->log(
@@ -97,7 +100,8 @@ class CartService extends Controller
 
       
     }
-
+    
+    //reducing units
     public function subtractUnits(int $id,ActionLogService $logger){
         
         $cartItem = $this->cartItem->subtractUnits($id);
@@ -110,6 +114,7 @@ class CartService extends Controller
         );
 
     }
+    //reducing units by product
     public function subtractUnitsProduct(int $id,ActionLogService $logger){
         
         $cartItem = $this->cartItem->subtractUnitsProduct($id);
@@ -122,7 +127,7 @@ class CartService extends Controller
         );
 
     }
-
+    //checkout function
      public function toCheckout(ActionLogService $logger){
         $cartItems = $this->cartItem->lockForUpdateGet();
         foreach ($cartItems as $item) {
