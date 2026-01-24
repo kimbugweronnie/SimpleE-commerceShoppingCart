@@ -19,7 +19,7 @@ class DailySalesReport extends Component
         $this->sales = $this->getSales();
 
     }
-
+   // all the sales based on product name for the current date
     public function getSales()
     {
         $date = now()->toDateString();

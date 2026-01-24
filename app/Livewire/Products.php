@@ -14,12 +14,13 @@ class Products extends Component
     {
         return view('livewire.products');
     }
-
+    //all products
     public function mount()
     {
         $this->products = $this->getProducts();
     }
 
+   //all products whose stock quantity is  greater than zero
     private function getProducts(): Collection
     {
 

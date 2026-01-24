@@ -20,7 +20,8 @@ class Product extends Component
     {
         return view('livewire.product');
     }
-
+   
+    // specific product,product units,check if product is added(boolean)
     public function mount($product, ProductService $productService)
     {
         $this->product = $product;
@@ -28,11 +29,12 @@ class Product extends Component
         $this->isadded = $productService->checkCartItem($product->id);
 
     }
-
+    // add to cart functionality
     public function addToCart(ProductService $productService, ActionLogService $logger)
     {
 
         $item = $productService->addToCart(1, $this->product['name'], $this->product['id'], auth()->user()->id, $this->product['price']);
+        //action is stored 
         $logger->log(
             auth()->user()->id,
             'add to cart',
@@ -45,13 +47,15 @@ class Product extends Component
 
         return redirect()->route('product.show', $this->product);
     }
-
+  
+    //fetch cart item based on product id
     private function getCartItem()
     {
         return CartItem::where('product_id', $this->product->id)->where('user_id', auth()->user()->id)->where('bought', false)->first();
 
     }
-
+   
+    //cartItem units
     public function getUnits()
     {
         $cartItem = $this->getCartItem();
@@ -61,7 +65,7 @@ class Product extends Component
             return $cartItem->units;
         }
     }
-
+    
     public function checkCartItem(): bool
     {
         $cartItem = $this->getCartItem();
@@ -71,7 +75,7 @@ class Product extends Component
             return true;
         }
     }
-
+    //adding additional units for  item added
     public function addUnits(int $id, CartService $cartService, ActionLogService $logger)
     {
 
@@ -80,7 +84,8 @@ class Product extends Component
 
         return redirect()->route('product.show', $this->product);
     }
-
+   
+    //reducing units for an item added
     public function subtractUnits(int $id, CartService $cartService, ActionLogService $logger)
     {
         $cartItem = $cartService->getCartItemByProduct($id);
@@ -97,12 +102,5 @@ class Product extends Component
         return redirect()->route('product.show', $this->product);
 
     }
-
-    // public function removeFromCart(int $id,CartService $cartService,ActionLogService $logger){
-    //     $cartItem = $cartService->removeFromCart($id,$logger);
-    //     $this->dispatch('toast', message: 'Product removed from cart successfully');
-    //     return redirect()->route('cart');
-
-    // }
 
 }

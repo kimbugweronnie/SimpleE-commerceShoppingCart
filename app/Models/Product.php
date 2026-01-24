@@ -44,7 +44,6 @@ class Product extends Model
     {
         $product = $this::where('id', $item->product_id)->lockForUpdate()->first();
         return $product;
-        // $product->decrement('stock_quantity', $item->units);
 
     }
 

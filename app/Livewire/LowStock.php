@@ -13,13 +13,15 @@ class LowStock extends Component
     {
         return view('livewire.low-stock');
     }
-
+    
+    //all products
     public function mount()
     {
 
         $this->products = $this->getProducts();
     }
-
+   
+    //all product whose stock quantity in less than or equal to 5
     public function getProducts(): array
     {
         $products = Product::where('stock_quantity', '<=', 5)->get();

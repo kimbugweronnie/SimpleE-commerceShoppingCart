@@ -14,14 +14,14 @@ class Cart extends Component
 
     public $totals;
 
-    // protected $product;
-    // protected $cartItem;
+   
 
     public function render()
     {
         return view('livewire.cart');
     }
 
+    //cartItems, items units,total units 
     public function mount(CartService $cartService)
     {
         $this->cartItems = $cartService->getCartItems();
@@ -30,6 +30,8 @@ class Cart extends Component
 
     }
 
+
+    //adding additional units for  item added
     public function addUnits(int $id, CartService $cartService, ActionLogService $logger)
     {
 
@@ -38,7 +40,8 @@ class Cart extends Component
 
         return redirect()->route('cart');
     }
-
+    
+    //reducing units for an item added
     public function subtractUnits(int $id, CartService $cartService, ActionLogService $logger)
     {
         $cartItem = $cartService->getCartItem($id);
@@ -56,6 +59,7 @@ class Cart extends Component
 
     }
 
+    //removing item from cart
     public function removeFromCart(int $id, CartService $cartService, ActionLogService $logger)
     {
         $cartItem = $cartService->removeFromCart($id, $logger);
@@ -64,7 +68,8 @@ class Cart extends Component
         return redirect()->route('cart');
 
     }
-
+   
+    //checkout  function
     public function toCheckout(CartService $cartService, ActionLogService $logger)
     {
 
